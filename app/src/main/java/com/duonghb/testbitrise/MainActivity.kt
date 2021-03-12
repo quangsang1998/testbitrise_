@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //comment 2
+        //comment 2 3
     }
 }

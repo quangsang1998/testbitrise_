@@ -7,8 +7,9 @@ warn("You should provide a summary in the Pull Request description so that the r
 warn("This PR is quite a big one! Maybe try splitting this into separate tasks next time 🙂") if git.lines_of_code > 600
 
 # ktlint
+gitlab.dismiss_out_of_range_messages
 checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report "/bitrise/src/app/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.html"
+checkstyle_format.report '/bitrise/src/app/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.html'
 
 # android lint
 android_lint.skip_gradle_task = true

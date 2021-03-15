@@ -4,4 +4,4 @@ source "https://rubygems.org"
 
 gem 'danger'
 gem 'danger-checkstyle_format'
-gem 'anger-android_lint'
+gem 'danger-android_lint'

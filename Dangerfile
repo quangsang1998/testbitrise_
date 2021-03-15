@@ -8,7 +8,7 @@ warn("This PR is quite a big one! Maybe try splitting this into separate tasks n
 
 # ktlint
 checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report "/bitrise/src/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.html"
+checkstyle_format.report "/bitrise/src/app/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.html"
 
 # android lint
 android_lint.skip_gradle_task = true

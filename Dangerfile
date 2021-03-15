@@ -7,7 +7,7 @@ warn("You should provide a summary in the Pull Request description so that the r
 warn("This PR is quite a big one! Maybe try splitting this into separate tasks next time 🙂") if git.lines_of_code > 600
 
 # ktlint check
-github.dismiss_out_of_range_messages
+gitlab.dismiss_out_of_range_messages
 checkstyle_format.base_path = Dir.pwd
 Dir["**/build/reports/ktlint/ktlint*.xml"].each do |file|
   checkstyle_format.report file

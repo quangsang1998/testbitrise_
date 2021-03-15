@@ -29,7 +29,9 @@ subprojects {
     ktlint {
         version = "0.38.1"
         android = true
-        reporter = "checkstyle"
+        reporters {
+            reporter "html"
+        }
         ignoreFailures = true
     }
 }

@@ -30,7 +30,7 @@ subprojects {
         version = "0.38.1"
         android = true
         reporters {
-            reporter "html"
+            reporter "checkstyle"
         }
         ignoreFailures = true
     }

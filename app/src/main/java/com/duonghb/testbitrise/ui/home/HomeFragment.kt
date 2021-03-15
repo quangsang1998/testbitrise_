@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        //eroror 22222
+        //eroror 22222 4444
         return root
     }
 }

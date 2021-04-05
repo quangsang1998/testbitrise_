@@ -9,12 +9,12 @@ warn("This PR is quite a big one! Maybe try splitting this into separate tasks n
 # ktlint
 gitlab.dismiss_out_of_range_messages
 checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report "**/build/reports/ktlint/ktlint*.xml"
+checkstyle_format.report "**/build/reports/ktlint/ktlint*.html"
 
 # android lint
 android_lint.skip_gradle_task = true
 android_lint.filtering = true
-Dir["*/build/reports/lint-results*.xml"].each do |file|
+Dir["*/build/reports/lint-results*.html"].each do |file|
   android_lint.report_file = file
   android_lint.lint(inline_mode: true)
 end

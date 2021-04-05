@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
                 textView.text = it
             }
         )
-        //eroror 22222 4444 66 88 11 222 4 8 7 7 8 8 1 1 2 1 1 1 1 2 3
+        //eroror 22222 4444 66 88 11 222 4 8 7 7 8 8 1 1 2 1 1 1 1 2 3 3
         return root
     }
 }

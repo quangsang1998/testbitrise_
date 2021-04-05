@@ -34,19 +34,6 @@ subprojects {
         }
         ignoreFailures = true
     }
-
-    task runChecksForDanger() {
-        group = "Reporting"
-        dependsOn 'ktlintCheck'
-        dependsOn ':mobile-ui:lint'
-        dependsOn ':cache:lint'
-        dependsOn ':presentation:lint'
-
-        def file = file("${project.rootDir}/build/reports/ktlint")
-        if (!file.exists()) file.mkdirs()
-        def lintFile = new File("${project.rootDir}/build/reports/lint")
-        if (!lintFile.exists()) lintFile.mkdirs()
-    }
 }
 
 task clean(type: Delete) {

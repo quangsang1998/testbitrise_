@@ -3,11 +3,15 @@ package com.duonghb.testbitrise.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    protected  val disposables = CompositeDisposable()
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
-    val text: LiveData<String> = _text
+
 }

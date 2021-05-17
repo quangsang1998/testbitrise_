@@ -5,48 +5,48 @@
 
     <data>
 
+      <variable
+        name="model"
+        type="com.duonghb.testbitrise.domain.model.NewsModel" />
+
     </data>
 
-  <RelativeLayout
+  <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/hight_item"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <ImageView
       android:id="@+id/newsImageView"
       android:layout_width="122dp"
       android:layout_height="90dp"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/image_height"
       android:scaleType="fitXY"
-      tools:srcCompat="@tools:sample/backgrounds/scenic" />
+      android:src="@drawable/ic_launcher_background" />
 
     <LinearLayout
-      android:layout_width="285dp"
-      android:layout_height="match_parent"
-      android:layout_alignParentEnd="true"
+      android:layout_width="300dp"
+      android:layout_height="100dp"
       android:layout_marginStart="1dp"
       android:layout_marginEnd="3dp"
-      android:layout_toEndOf="@+id/newsImageView"
-      android:weightSum="5"
+      android:layout_marginBottom="@dimen/image_height"
+      android:layout_weight="1"
       android:orientation="vertical">
 
       <TextView
         android:id="@+id/titleTextView"
-        android:name="title"
+        android:text="@{model.title}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:gravity="center" />
 
       <TextView
         android:id="@+id/descriptionTextView"
-        android:name="description"
+        android:text="@{model.description}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="4"/>
+        android:layout_height="100dp" />
 
     </LinearLayout>
-  </RelativeLayout>
+  </LinearLayout>
 </layout>
 

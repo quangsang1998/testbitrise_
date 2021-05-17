@@ -28,9 +28,4 @@ class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             }
         }
     }
-
-//
-//    override fun getItemViewType(position: Int): Int {
-//        return fragmentList[position]
-//    }
 }

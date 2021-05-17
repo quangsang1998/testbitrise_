@@ -10,8 +10,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_history
 
+    private  val newsAdapter by lazy {
+        NewsAdapter()
+    }
     override fun init() {
         super.init()
+        historyRecyclerView.adapter = newsAdapter
     }
 
     companion object {

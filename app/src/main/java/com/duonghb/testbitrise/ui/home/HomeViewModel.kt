@@ -2,16 +2,31 @@ package com.duonghb.testbitrise.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
+import com.duonghb.testbitrise.domain.model.NewsModel
+import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
+import com.duonghb.testbitrise.ui.common.BaseViewModel
+import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
+import java.util.*
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val getNewsListUseCase: GetNewsListUseCase,
+) : BaseViewModel() {
 
-    protected  val disposables = CompositeDisposable()
+    val loadNewsCompleted: LiveData<List<NewsModel>> get() = _loadNewsCompleted
+    private val _loadNewsCompleted = MutableLiveData<List<NewsModel>>()
 
-    override fun onCleared() {
-        super.onCleared()
-        disposables.clear()
+    fun loadData() {
+        disposables.add(
+            getNewsListUseCase()
+                .subscribeBy(
+                    onSuccess = {
+                        _loadNewsCompleted.postValue(it)
+                    },
+                    onError = {
+                        Timber.e("Error")
+                    }
+                )
+        )
     }
-
 }

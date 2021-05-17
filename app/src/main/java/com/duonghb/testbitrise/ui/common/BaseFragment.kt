@@ -29,7 +29,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     open fun registerListeners() {
     }
 
-    open fun registerLivadataListeners() {
+    open fun registerLivedataListeners() {
     }
 
     override fun onCreateView(
@@ -48,6 +48,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         init()
         initUi()
         registerListeners()
-        registerLivadataListeners()
+        registerLivedataListeners()
     }
 }

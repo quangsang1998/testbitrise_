@@ -12,11 +12,16 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
+    override val layoutId: Int
+        get() = R.layout.fragment_home
+
     private val viewPagerAdapter by lazy {
         ViewPagerAdapter(this)
     }
-    override val layoutId: Int
-        get() = R.layout.fragment_home
+
+    private val newsAdapter by lazy {
+        NewsAdapter()
+    }
 
     override fun init() {
         super.init()
@@ -31,27 +36,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 1 -> tag.text = "History"
             }
         }.attach()
-
-//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            when (position) {
-//                0 -> {
-//                    tab.text = "News"
-//                }
-//
-//                1 -> {
-//                    tab.text = "History"
-//                }
-//                else -> {
-//                }
-//            }
-//        }.attach()
-
-
-//        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback {
-//            override fun onPageSelected(position: Int) {
-//                viewPager.isSelected
-//            }
-//        })
     }
 
     override fun initUi() {
@@ -59,8 +43,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         // newsRecyclerView.adapter = newsAdapter
     }
 
-    override fun registerLivadataListeners() {
-        super.registerLivadataListeners()
+    override fun registerLivedataListeners() {
+        super.registerLivedataListeners()
     }
 
     companion object {

@@ -13,5 +13,7 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideViewModel(getNewsListUseCase: GetNewsListUseCase): HomeViewModel = HomeViewModel(getNewsListUseCase)
+    fun provideViewModel(getNewsListUseCase: GetNewsListUseCase): HomeViewModel {
+        return HomeViewModel(getNewsListUseCase)
+    }
 }

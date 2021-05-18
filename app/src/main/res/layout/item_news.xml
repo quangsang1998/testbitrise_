@@ -35,14 +35,14 @@
 
       <TextView
         android:id="@+id/titleTextView"
-        android:text="text"
+        android:text="@string/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center" />
 
       <TextView
         android:id="@+id/descriptionTextView"
-        android:text="description"
+        android:text="@string/text_description"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 

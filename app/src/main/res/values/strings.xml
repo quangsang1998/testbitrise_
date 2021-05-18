@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">TestBitrise</string>
     <string name="title_home">Home</string>
-    <string name="title_detail_news">News</string>
+<!--    <string name="title_detail_news">News</string>-->
     <string name="title_notifications">Notifications</string>
-    <string name="title_news">News</string>
-    <string name="title_history">History</string>
-    <string name="text_news">text</string>
-    <string name="text_history">t</string>
+<!--    <string name="title_news">News</string>-->
+<!--    <string name="title_history">History</string>-->
+<!--    <string name="text_news">text</string>-->
+<!--    <string name="text_history">t</string>-->
     <string name="content_image">Image</string>
+    <string name="text_title">title</string>
+    <string name="text_description">description</string>
 </resources>

@@ -7,4 +7,5 @@
     <string name="title_history">History</string>
     <string name="text_news">text</string>
     <string name="text_history">t</string>
+    <string name="content_image">Image</string>
 </resources>

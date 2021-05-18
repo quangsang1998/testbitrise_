@@ -1,15 +1,14 @@
 package com.duonghb.testbitrise.ui.home
 
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.FragmentHomeBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val layoutId: Int
@@ -40,7 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initUi() {
         super.initUi()
-        // newsRecyclerView.adapter = newsAdapter
     }
 
     override fun registerLivedataListeners() {

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 const val GET_NEWS_LIST: String = "/home.json?api-key=t4EG49MADcsJR9zFouDYO5ANI1rpJTAf"
-const val BASE_URL: String = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=t4EG49MADcsJR9zFouDYO5ANI1rpJTAf"
+const val BASE_URL: String = "/v2/home.json?api-key=t4EG49MADcsJR9zFouDYO5ANI1rpJTAf"
 
 interface ApiService {
     @FormUrlEncoded

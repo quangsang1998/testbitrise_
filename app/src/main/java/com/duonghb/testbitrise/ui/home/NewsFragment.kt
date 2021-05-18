@@ -4,7 +4,6 @@ import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.FragmentNewsBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
 import kotlinx.android.synthetic.main.fragment_news.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 

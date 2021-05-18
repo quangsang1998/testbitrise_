@@ -5,8 +5,11 @@ import com.duonghb.testbitrise.domain.repository.NewsRepository
 import com.duonghb.testbitrise.network.ApiService
 import com.duonghb.testbitrise.util.SchedulerProvider
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NewsRepositoryImpl(
+@Singleton
+class NewsRepositoryImpl @Inject constructor(
     private val schedulerProvider: SchedulerProvider
 ) : NewsRepository {
 

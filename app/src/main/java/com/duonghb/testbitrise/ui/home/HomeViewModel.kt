@@ -7,10 +7,9 @@ import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
-import java.util.*
 
 class HomeViewModel(
-    private val getNewsListUseCase: GetNewsListUseCase,
+    private val getNewsListUseCase: GetNewsListUseCase
 ) : BaseViewModel() {
 
     val loadNewsCompleted: LiveData<List<NewsModel>> get() = _loadNewsCompleted

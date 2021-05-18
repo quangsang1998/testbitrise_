@@ -14,6 +14,11 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         NewsAdapter()
     }
 
+    override fun onResume() {
+        super.onResume()
+        safeActivity.supportActionBar?.title = "News"
+    }
+
     override fun init() {
         super.init()
         newsRecyclerView.adapter = newsAdapter

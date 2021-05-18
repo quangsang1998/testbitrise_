@@ -5,10 +5,8 @@ import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.FragmentHomeBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
-@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val layoutId: Int
@@ -31,8 +29,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         TabLayoutMediator(tabLayout, viewPager) { tag, position ->
             when (position) {
-                0 -> tag.text = "News"
-                1 -> tag.text = "History"
+                0 -> {
+                    tag.text = "News"
+                }
+                1 -> {
+                    tag.text = "History"
+                }
             }
         }.attach()
     }

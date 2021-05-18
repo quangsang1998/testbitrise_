@@ -14,6 +14,11 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         NewsAdapter()
     }
 
+    override fun onResume() {
+        super.onResume()
+        safeActivity.supportActionBar?.title = "History"
+    }
+
     override fun init() {
         super.init()
         historyRecyclerView.adapter = newsAdapter

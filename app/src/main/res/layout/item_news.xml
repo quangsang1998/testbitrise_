@@ -4,10 +4,10 @@
   xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+      
       <variable
         name="model"
         type="com.duonghb.testbitrise.domain.model.NewsModel" />
-
     </data>
 
   <LinearLayout
@@ -47,13 +47,6 @@
         android:layout_height="100dp" />
 
     </LinearLayout>
-
-<!--    <TextView-->
-<!--      android:id="@+id/textView2"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="155dp"-->
-<!--      android:gravity="center"-->
-<!--      android:text="TextView" />-->
   </LinearLayout>
 </layout>
 

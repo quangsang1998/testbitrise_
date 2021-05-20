@@ -3,50 +3,58 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+  <data>
 
-      <variable
-        name="model"
-        type="com.duonghb.testbitrise.domain.model.NewsModel" />
-    </data>
+    <variable
+      name="model"
+      type="com.duonghb.testbitrise.domain.model.NewsModel" />
+  </data>
 
-  <LinearLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="horizontal">
+    android:background="@color/white">
 
     <ImageView
       android:id="@+id/newsImageView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/image_height"
+      android:layout_marginStart="@dimen/mergin_start"
+      android:paddingBottom="@dimen/image_height"
       android:contentDescription="@string/content_image"
       android:scaleType="fitXY"
-      android:src="@drawable/ic_launcher_background" />
+      android:src="@drawable/ic_launcher_background"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_marginStart="1dp"
-          android:layout_marginEnd="3dp"
-          android:layout_weight="1"
-          android:orientation="vertical">
+    <LinearLayout
+      android:id="@+id/linearLayout"
+       android:layout_width="@dimen/size_width_height"
+       android:layout_height="match_parent"
+       android:layout_marginStart="@dimen/mergin_start"
+       android:layout_marginEnd="@dimen/megin_end"
+       android:orientation="vertical"
+       app:layout_constraintStart_toEndOf="@id/newsImageView"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent">
 
-          <TextView
-            android:id="@+id/titleTextView"
-            android:text="@string/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
+       <TextView
+          android:id="@+id/titleTextView"
+          android:text="@string/text_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+         android:layout_marginEnd="@dimen/megin_end"
+          android:gravity="center" />
 
-          <TextView
-            android:id="@+id/descriptionTextView"
-            android:text="@string/text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+       <TextView
+          android:id="@+id/descriptionTextView"
+          android:text="@string/text_description"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+         android:layout_marginEnd="@dimen/megin_end"/>
 
-        </LinearLayout>
-  </LinearLayout>
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

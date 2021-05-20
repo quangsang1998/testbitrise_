@@ -1,19 +1,26 @@
 package com.duonghb.testbitrise.di
 
-import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
-import com.duonghb.testbitrise.ui.home.HomeViewModel
+import com.duonghb.testbitrise.network.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
+@Module()
 @InstallIn(SingletonComponent::class)
-@Module
-object AppModule {
+abstract class AppModule {
+
     @Provides
-    @Singleton
-    fun provideViewModel(getNewsListUseCase: GetNewsListUseCase): HomeViewModel {
-        return HomeViewModel(getNewsListUseCase)
+    fun provideApiService(): ApiService {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+            .create(ApiService::class.java)
+    }
+
+    companion object {
+        const val BASE_URL: String = "https://api.nytimes.com/svc/topstories/v2/"
     }
 }

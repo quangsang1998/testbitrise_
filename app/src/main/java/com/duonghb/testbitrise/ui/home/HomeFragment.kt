@@ -16,35 +16,50 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ViewPagerAdapter(this)
     }
 
-    private val newsAdapter by lazy {
-        NewsAdapter()
-    }
-
     override fun init() {
-        super.init()
-        safeActivity.supportActionBar?.elevation
-
         viewPager.adapter = viewPagerAdapter
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+    }
+
+    override fun initUi() {
+        safeActivity.supportActionBar?.setDisplayShowHomeEnabled(false)
+        safeActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> safeActivity.supportActionBar?.setTitle(R.string.title_news)
+                    1 -> safeActivity.supportActionBar?.setTitle(R.string.title_history)
+                }
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+        })
 
         TabLayoutMediator(tabLayout, viewPager) { tag, position ->
             when (position) {
                 0 -> {
-                    tag.text = "News"
+                    tag.setText(R.string.title_news)
                 }
                 1 -> {
-                    tag.text = "History"
+                    tag.setText(R.string.title_history)
                 }
             }
         }.attach()
     }
 
-    override fun initUi() {
-        super.initUi()
-    }
-
     override fun registerLivedataListeners() {
-        super.registerLivedataListeners()
     }
 
     companion object {

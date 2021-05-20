@@ -1,13 +1,14 @@
 package com.duonghb.testbitrise.domain.usecase
 
+import com.duonghb.testbitrise.data.repository.NewsRepositoryImpl
 import com.duonghb.testbitrise.domain.model.NewsModel
-import com.duonghb.testbitrise.domain.repository.NewsRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class GetNewsListUseCase(
-    private val newsRepository: NewsRepository
+class GetNewsListUseCase @Inject constructor(
+    private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
     operator fun invoke(): Single<List<NewsModel>> {
-        return newsRepository.getNewsList()
+        return newsRepositoryImpl.getNewsList()
     }
 }

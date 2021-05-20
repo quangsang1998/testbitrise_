@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.duonghb.testbitrise.databinding.ItemNewsBinding
 import com.duonghb.testbitrise.domain.model.NewsModel
 
-class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(
+    private val clickItemCallback: (() -> Unit)
+) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     private val listNews = mutableListOf<NewsModel>()
 
@@ -16,6 +18,7 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+        holder.bind()
     }
 
     override fun getItemCount(): Int {
@@ -30,5 +33,11 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     inner class NewsViewHolder(itemView: ItemNewsBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: ItemNewsBinding = itemView
+
+        fun bind() {
+            binding.root.setOnClickListener {
+                clickItemCallback.invoke()
+            }
+        }
     }
 }

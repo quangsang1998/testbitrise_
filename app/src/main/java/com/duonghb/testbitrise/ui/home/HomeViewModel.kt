@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val getNewsListUseCase: GetNewsListUseCase
 ) : BaseViewModel() {
 

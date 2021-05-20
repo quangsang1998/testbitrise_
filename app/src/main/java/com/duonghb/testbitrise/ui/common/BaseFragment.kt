@@ -10,27 +10,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<binding : ViewDataBinding> : Fragment() {
     @get: LayoutRes
     protected abstract val layoutId: Int
 
-    protected lateinit var binding: DB
+    protected lateinit var binding: binding
 
     protected val safeActivity by lazy {
         requireActivity() as AppCompatActivity
     }
 
-    open fun init() {
-    }
+    abstract fun init()
 
-    open fun initUi() {
-    }
+    abstract fun initUi()
 
-    open fun registerListeners() {
-    }
-
-    open fun registerLivedataListeners() {
-    }
+    abstract fun registerLivedataListeners()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +33,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -47,7 +41,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initUi()
-        registerListeners()
         registerLivedataListeners()
     }
 }

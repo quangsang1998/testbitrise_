@@ -1,27 +1,32 @@
 package com.duonghb.testbitrise.ui.home
 
+import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
-import com.duonghb.testbitrise.databinding.FragmentHistoryBinding
+import com.duonghb.testbitrise.databinding.HistoryFragmentBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
-import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.history_fragment.*
 
-class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
+class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_history
+        get() = R.layout.history_fragment
 
     private val newsAdapter by lazy {
-        NewsAdapter()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        safeActivity.supportActionBar?.title = "History"
+        NewsAdapter(
+            clickItemCallback = {
+                findNavController().navigate(R.id.action_navigation_home_to_navigation_news_detail)
+            }
+        )
     }
 
     override fun init() {
-        super.init()
         historyRecyclerView.adapter = newsAdapter
+    }
+
+    override fun initUi() {
+    }
+
+    override fun registerLivedataListeners() {
     }
 
     companion object {

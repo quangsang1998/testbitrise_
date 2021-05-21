@@ -1,11 +1,15 @@
 package com.duonghb.testbitrise.ui.home
 
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.NewsFragmentBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.news_fragment.*
 
+@AndroidEntryPoint
 class NewsFragment : BaseFragment<NewsFragmentBinding>() {
 
     override val layoutId: Int
@@ -19,7 +23,10 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
         )
     }
 
+    private val viewModel: HomeViewModel by viewModels()
+
     override fun init() {
+        viewModel.loadData()
     }
 
     override fun initUi() {
@@ -27,6 +34,12 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
     }
 
     override fun registerLivedataListeners() {
+        viewModel.loadNewsCompleted.observe(
+            this,
+            Observer {
+                newsAdapter.setItems(it)
+            }
+        )
     }
 
     companion object {

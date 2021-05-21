@@ -18,11 +18,12 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind()
+        val news: NewsModel = listNews.get(position)
+        holder.bind(news)
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return listNews.size
     }
 
     fun setItems(items: List<NewsModel>) {
@@ -34,7 +35,9 @@ class NewsAdapter(
     inner class NewsViewHolder(itemView: ItemNewsBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: ItemNewsBinding = itemView
 
-        fun bind() {
+        fun bind(news: NewsModel) {
+            binding.model = news
+
             binding.root.setOnClickListener {
                 clickItemCallback.invoke()
             }

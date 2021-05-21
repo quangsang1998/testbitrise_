@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
+import com.duonghb.testbitrise.util.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getNewsListUseCase: GetNewsListUseCase
+    private val getNewsListUseCase: GetNewsListUseCase,
+    private val schedulerProvider: SchedulerProvider
 ) : BaseViewModel() {
 
     val loadNewsCompleted: LiveData<List<NewsModel>> get() = _loadNewsCompleted
@@ -21,6 +23,8 @@ class HomeViewModel @Inject constructor(
     fun loadData() {
         disposables.add(
             getNewsListUseCase()
+                .observeOn(schedulerProvider.io())
+                .subscribeOn(schedulerProvider.io())
                 .subscribeBy(
                     onSuccess = {
                         _loadNewsCompleted.postValue(it)

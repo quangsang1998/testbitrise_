@@ -1,5 +1,6 @@
 package com.duonghb.testbitrise.ui.home
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.duonghb.testbitrise.R
@@ -25,7 +26,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         )
     }
 
+    private val viewModel: HomeViewModel by viewModels()
+
     override fun init() {
+        viewModel.loadData()
     }
 
     override fun initUi() {

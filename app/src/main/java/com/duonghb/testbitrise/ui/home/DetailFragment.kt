@@ -1,9 +1,13 @@
 package com.duonghb.testbitrise.ui.home
 
+import android.view.View
+import android.webkit.WebViewClient
+import androidx.navigation.fragment.navArgs
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.DetailFragmentBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.detail_fragment.*
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<DetailFragmentBinding>() {
@@ -16,7 +20,16 @@ class DetailFragment : BaseFragment<DetailFragmentBinding>() {
         safeActivity.supportActionBar?.setTitle(R.string.title_news_detail)
     }
 
+    private val args: DetailFragmentArgs by navArgs()
+
     override fun init() {
+        val url = args.url
+
+        newsDetailWebView.settings.loadsImagesAutomatically
+        newsDetailWebView.settings.javaScriptEnabled
+        newsDetailWebView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
+        newsDetailWebView.loadUrl(url)
+        newsDetailWebView.webViewClient = WebViewClient()
     }
 
     override fun initUi() {

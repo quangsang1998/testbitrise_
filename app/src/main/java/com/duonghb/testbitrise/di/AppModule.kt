@@ -35,6 +35,7 @@ object AppModule {
 
         return Retrofit.Builder()
             .baseUrl(BaseConstant.BASE_URL)
+            .client(clientBuilder.build())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
             .create(ApiService::class.java)

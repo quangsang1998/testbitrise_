@@ -1,5 +1,9 @@
 package com.duonghb.testbitrise.ui.home
 
+import android.annotation.SuppressLint
+import android.view.Menu
+import android.view.MenuInflater
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -18,7 +22,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
     private val newsAdapter by lazy {
         NewsAdapter(
             clickItemCallback = {
-                findNavController().navigate(R.id.action_navigation_home_to_navigation_news_detail)
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
             }
         )
     }
@@ -40,6 +44,15 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
                 newsAdapter.setItems(it)
             }
         )
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        if (menu is MenuBuilder) {
+            menu.setOptionalIconsVisible(true)
+        }
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
     companion object {

@@ -9,4 +9,5 @@
     <string name="text_description">description</string>
     <string name="title_news">News</string>
     <string name="title_history">History</string>
+    <string name="title_load">Load</string>
 </resources>

@@ -7,13 +7,13 @@ import com.duonghb.testbitrise.databinding.ItemNewsBinding
 import com.duonghb.testbitrise.domain.model.NewsImage
 import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.model.NewsModelData
+import com.squareup.picasso.Picasso
 
 class NewsAdapter(
     private val clickItemCallback: ((newsModelData: NewsModelData) -> Unit)
 ) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     private val listNews = mutableListOf<NewsModelData>()
-    private val listImage = mutableListOf<NewsImage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,8 +22,7 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsModelData = listNews.get(position)
-
-        holder.bind(news)
+        holder.bind(news, news.multimedia.get(0))
     }
 
     override fun getItemCount(): Int {
@@ -39,12 +38,14 @@ class NewsAdapter(
     inner class NewsViewHolder(itemView: ItemNewsBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: ItemNewsBinding = itemView
 
-        fun bind(news: NewsModelData) {
+        fun bind(news: NewsModelData, newsImage: NewsImage) {
             binding.model = news
+            binding.modelImage = newsImage
 
             binding.root.setOnClickListener {
                 clickItemCallback.invoke(news)
             }
+            Picasso.get().load(newsImage.url).into(binding.newsImageView)
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.duonghb.testbitrise.di
 
-import com.duonghb.testbitrise.util.AppScheduleProvider
-import com.duonghb.testbitrise.util.SchedulerProvider
+import android.content.Context
+import com.duonghb.testbitrise.util.rx.AppSchedulerProvider
+import com.duonghb.testbitrise.util.rx.SchedulerProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -12,5 +14,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class SchedulerModule {
 
     @Binds
-    abstract fun bindScheduler(appScheduleProvider: AppScheduleProvider): SchedulerProvider
+    abstract fun bindScheduler(appScheduleProvider: AppSchedulerProvider): SchedulerProvider
 }

@@ -23,6 +23,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
         NewsAdapter(
             clickItemCallback = {
                 findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
+                viewModel.saveNewsModelDatabase(it)
             }
         )
     }
@@ -44,15 +45,6 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
                 newsAdapter.setItems(it)
             }
         )
-    }
-
-    @SuppressLint("RestrictedApi")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-        if (menu is MenuBuilder) {
-            menu.setOptionalIconsVisible(true)
-        }
-        return super.onCreateOptionsMenu(menu, inflater)
     }
 
     companion object {

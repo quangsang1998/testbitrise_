@@ -1,4 +1,4 @@
-package com.duonghb.testbitrise.util
+package com.duonghb.testbitrise.util.rx
 
 import io.reactivex.Scheduler
 

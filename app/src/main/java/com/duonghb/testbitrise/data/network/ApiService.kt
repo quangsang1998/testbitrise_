@@ -15,5 +15,4 @@ interface ApiService {
 
     @GET(SupplyConstant.GET_NEWS_LIST)
     fun getNews(): Single<NewsModel>
-    fun getNewsImage(): Single<NewsModelData>
 }

@@ -6,12 +6,8 @@
   <data>
 
     <variable
-      name="model"
-      type="com.duonghb.testbitrise.domain.model.NewsModelData" />
-
-    <variable
-      name="modelImage"
-      type="com.duonghb.testbitrise.domain.model.NewsImage" />
+      name="modelHistory"
+      type="com.duonghb.testbitrise.domain.historymodel.HistoryModelData" />
   </data>
   <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
@@ -27,7 +23,7 @@
       android:layout_height="match_parent">
 
       <ImageView
-        android:id="@+id/newsImageView"
+        android:id="@+id/newsHistoryImageView"
         android:layout_width="@dimen/size_width_height"
         android:layout_height="@dimen/size_width_height"
         android:layout_marginStart="@dimen/megin_start_end_top_bottom"
@@ -50,34 +46,26 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/newsImageView"
+        app:layout_constraintStart_toEndOf="@id/newsHistoryImageView"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-          android:id="@+id/titleTextView"
+          android:id="@+id/newsTitleTextView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
           android:gravity="center"
-          android:text="@{model.title}"
+          android:text="@{modelHistory.title}"
           android:textStyle="bold" />
 
         <TextView
-          android:id="@+id/sectionTextView"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/size_width_height"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:layout_weight="1"
-          android:gravity="start"
-          android:text="@{model.section}" />
-
-        <TextView
-          android:id="@+id/descriptionTextView"
+          android:id="@+id/newsSectionTextView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
+          android:layout_weight="1"
           android:gravity="start"
-          android:text="@{model.abstract}" />
+          android:text="@{modelHistory.section}" />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

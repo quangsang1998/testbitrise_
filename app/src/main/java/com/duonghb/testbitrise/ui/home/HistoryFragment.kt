@@ -1,5 +1,6 @@
 package com.duonghb.testbitrise.ui.home
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.HistoryFragmentBinding
@@ -13,22 +14,38 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
     override val layoutId: Int
         get() = R.layout.history_fragment
 
-    private val newsAdapter by lazy {
-        NewsAdapter(
+    private val historyAdapter by lazy {
+        HistoryAdapter(
             clickItemCallback = {
-                findNavController().navigate(R.id.action_navigation_home_to_navigation_news_detail)
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
             }
         )
     }
 
+    private val viewModel: HomeViewModel by viewModels()
+
     override fun init() {
+        viewModel.getNewsHistoryListDatabase()
     }
 
     override fun initUi() {
-        historyRecyclerView.adapter = newsAdapter
+        historyRecyclerView.adapter = historyAdapter
     }
 
     override fun registerLivedataListeners() {
+        viewModel.saveNewsHistoryDatabaseCompleted.observe(
+            this,
+            {
+                viewModel.getNewsHistoryListDatabase()
+            }
+        )
+
+        viewModel.loadNewsHistoryListDatabaseCompleted.observe(
+            this,
+            {
+                historyAdapter.setHistoryItems(it)
+            }
+        )
     }
 
     companion object {

@@ -8,7 +8,7 @@ import com.duonghb.testbitrise.domain.historymodel.HistoryModelData
 import com.squareup.picasso.Picasso
 
 class HistoryAdapter(
-    private val clickItemCallback: ((historyModelData: HistoryModelData) -> Unit)
+    private val clickHistoryItemCallback: ((historyModelData: HistoryModelData) -> Unit)
 ) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     private val listNewsHistory = mutableListOf<HistoryModelData>()
@@ -40,7 +40,7 @@ class HistoryAdapter(
             binding.modelHistory = news
 
             binding.root.setOnClickListener {
-                clickItemCallback.invoke(news)
+                clickHistoryItemCallback.invoke(news)
             }
             Picasso.get().load(news.imageUrl).into(binding.newsHistoryImageView)
         }

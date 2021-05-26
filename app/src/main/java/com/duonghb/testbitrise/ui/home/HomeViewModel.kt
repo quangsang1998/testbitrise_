@@ -3,10 +3,11 @@ package com.duonghb.testbitrise.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.duonghb.testbitrise.domain.historymodel.HistoryModelData
-import com.duonghb.testbitrise.domain.model.NewsImage
 import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.model.NewsModelData
-import com.duonghb.testbitrise.domain.usecase.*
+import com.duonghb.testbitrise.domain.usecase.GetNewsHistoryListUseCase
+import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
+import com.duonghb.testbitrise.domain.usecase.SaveNewsHistoryUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
 import com.duonghb.testbitrise.util.rx.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel

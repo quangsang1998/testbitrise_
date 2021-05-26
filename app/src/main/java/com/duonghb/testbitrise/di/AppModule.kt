@@ -1,19 +1,10 @@
 package com.duonghb.testbitrise.di
 
-import android.app.Application
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
-import com.duonghb.testbitrise.App
-import com.duonghb.testbitrise.data.database.ToDoDatabase
 import com.duonghb.testbitrise.network.ApiService
-import com.duonghb.testbitrise.util.constant.Constant
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.internal.modules.ApplicationContextModule
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,11 +39,5 @@ object AppModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
             .create(ApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): ToDoDatabase {
-        return Room.databaseBuilder(context, ToDoDatabase::class.java, Constant.DB_NAME).build()
     }
 }

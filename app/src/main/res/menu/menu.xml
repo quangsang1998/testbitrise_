@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-    android:id="@+id/navigation_home"
+    android:id="@+id/menu_refresh"
     android:icon="@drawable/ic_baseline_forward_10_24"
     android:title="@string/title_load"
     app:showAsAction="always" />

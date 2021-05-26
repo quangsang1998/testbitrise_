@@ -22,7 +22,7 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsModelData = listNews.get(position)
-        holder.bind(news, news.multimedia.get(0))
+        holder.bind(news, news.multimedia.first())
     }
 
     override fun getItemCount(): Int {

@@ -14,7 +14,7 @@ data class History @Inject constructor(
     @ColumnInfo(name = COLUMN_TITLE) val title: String,
     @ColumnInfo(name = COLUMN_SECTION) val section: String,
     @ColumnInfo(name = COLUMN_URL) val url: String,
-    @ColumnInfo(name = COLUMN_IMAGE_URL) val imageUrl: String
+    @ColumnInfo(name = COLUMN_IMAGE_URL) val imageUrl: String,
 ) {
     companion object {
         const val NAME = "news_model_data"
@@ -27,7 +27,7 @@ data class History @Inject constructor(
             title = model.title,
             section = model.section,
             url = model.url,
-            imageUrl = model.multimedia.get(0).toString()
+            imageUrl = model.multimedia.first().url
         )
     }
 }

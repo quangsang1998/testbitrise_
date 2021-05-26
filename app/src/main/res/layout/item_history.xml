@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
     <variable
       name="modelHistory"
       type="com.duonghb.testbitrise.domain.historymodel.HistoryModelData" />
+
+    <variable
+      name="modelImage"
+      type="com.duonghb.testbitrise.domain.model.NewsImage" />
   </data>
+
   <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/megin_start_end_top_bottom"
-    android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
     android:layout_marginTop="@dimen/megin_start_end_top_bottom"
+    android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
     android:layout_marginBottom="@dimen/megin_start_end_top_bottom"
     android:background="@color/white">
 
@@ -28,14 +32,12 @@
         android:layout_height="@dimen/size_width_height"
         android:layout_marginStart="@dimen/megin_start_end_top_bottom"
         android:contentDescription="@string/content_image"
-        android:foregroundGravity="left|top"
-        android:paddingBottom="@dimen/image_height"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
       <LinearLayout
         android:id="@+id/linearLayout"

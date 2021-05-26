@@ -1,7 +1,5 @@
 package com.duonghb.testbitrise.ui.home
 
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.FragmentHomeBinding
@@ -18,18 +16,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    private val newsAdapter by lazy {
-        NewsAdapter(
-            clickItemCallback = {
-                findNavController().navigate(R.id.action_navigation_home_to_navigation_news_detail)
-            }
-        )
-    }
-
-    private val viewModel: HomeViewModel by viewModels()
-
     override fun init() {
-        viewModel.loadData()
     }
 
     override fun initUi() {

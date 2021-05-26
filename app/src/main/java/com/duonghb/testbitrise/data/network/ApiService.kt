@@ -1,7 +1,6 @@
 package com.duonghb.testbitrise.network
 
 import com.duonghb.testbitrise.domain.model.NewsModel
-import com.duonghb.testbitrise.domain.model.NewsModelData
 import io.reactivex.Single
 import retrofit2.http.GET
 

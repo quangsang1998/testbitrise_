@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/mobile_navigation"
-  app:startDestination="@+id/navigation_home" >
+  app:startDestination="@+id/navigation_home">
 
   <fragment
     android:id="@+id/navigation_home"
@@ -13,19 +13,14 @@
 
     <action
       android:id="@+id/action_navigation_home_to_navigation_news_detail"
-      app:destination="@id/navigation_news_detail" >
-
-      <argument
-        android:name="url"
-        app:argType="string" />
-    </action>
+      app:destination="@id/navigation_news_detail" />
   </fragment>
 
   <fragment
     android:id="@+id/navigation_news_detail"
     android:name="com.duonghb.testbitrise.ui.home.DetailFragment"
     android:label="@string/title_news_detail"
-    tools:layout="@layout/detail_fragment" >
+    tools:layout="@layout/detail_fragment">
 
     <argument
       android:name="url"

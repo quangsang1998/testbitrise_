@@ -1,9 +1,8 @@
 package com.duonghb.testbitrise.ui.home
 
-import android.annotation.SuppressLint
 import android.view.Menu
 import android.view.MenuInflater
-import androidx.appcompat.view.menu.MenuBuilder
+import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -22,7 +21,11 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
     private val newsAdapter by lazy {
         NewsAdapter(
             clickItemCallback = {
-                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
+                        it.url
+                    )
+                )
                 viewModel.saveNewsModelDatabase(it)
             }
         )
@@ -30,7 +33,24 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> {
+                newsSwipeRefresh.isRefreshing = true
+                viewModel.loadData()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun init() {
+        setHasOptionsMenu(true)
         viewModel.loadData()
     }
 
@@ -43,6 +63,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
             this,
             Observer {
                 newsAdapter.setItems(it)
+                newsSwipeRefresh.isRefreshing = false
             }
         )
     }

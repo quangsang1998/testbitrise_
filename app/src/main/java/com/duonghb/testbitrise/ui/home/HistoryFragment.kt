@@ -16,7 +16,7 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
 
     private val historyAdapter by lazy {
         HistoryAdapter(
-            clickItemCallback = {
+            clickHistoryItemCallback = {
                 findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
             }
         )

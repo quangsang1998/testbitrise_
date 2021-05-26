@@ -2,7 +2,6 @@ package com.duonghb.testbitrise.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.duonghb.testbitrise.data.database.dao.HistoryDao
 import com.duonghb.testbitrise.data.database.entity.History
 

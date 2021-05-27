@@ -9,7 +9,7 @@ import com.duonghb.testbitrise.data.database.entity.History
     entities = [
         History::class
     ],
-    version = 1
+    version = 2
 )
 
 abstract class ToDoDatabase : RoomDatabase() {

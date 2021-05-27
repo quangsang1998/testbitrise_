@@ -4,8 +4,9 @@ import com.duonghb.testbitrise.data.database.entity.History
 import com.duonghb.testbitrise.domain.historymodel.HistoryModelData
 
 fun History.toModel() = HistoryModelData(
+    time = time,
     title = title,
     section = section,
     url = url,
-    imageUrl = imageUrl
+    imageUrl = imageUrl,
 )

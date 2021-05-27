@@ -51,7 +51,12 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
 
     override fun init() {
         setHasOptionsMenu(true)
+
         viewModel.loadData()
+
+        newsSwipeRefresh.setOnRefreshListener {
+            viewModel.loadData()
+        }
     }
 
     override fun initUi() {

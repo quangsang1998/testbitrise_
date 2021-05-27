@@ -9,7 +9,7 @@ import io.reactivex.Single
 
 @Dao
 interface HistoryDao {
-    @Query(" SELECT * FROM ${History.NAME}")
+    @Query(" SELECT * FROM ${History.NAME} ORDER BY time DESC")
     fun getAll(): Single<List<History>>
 
     @Insert

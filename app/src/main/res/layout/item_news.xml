@@ -59,7 +59,10 @@
           android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
           android:gravity="center"
           android:text="@{model.title}"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:lines="3"
+          android:ems="6"
+          android:ellipsize="end"/>
 
         <TextView
           android:id="@+id/sectionTextView"
@@ -76,7 +79,10 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
           android:gravity="start"
-          android:text="@{model.abstract}" />
+          android:text="@{model.abstract}"
+          android:lines="6"
+          android:ems="6"
+          android:ellipsize="end" />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

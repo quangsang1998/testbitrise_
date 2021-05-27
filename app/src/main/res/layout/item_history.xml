@@ -58,7 +58,10 @@
           android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
           android:gravity="center"
           android:text="@{modelHistory.title}"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:lines="3"
+          android:ems="6"
+          android:ellipsize="end"/>
 
         <TextView
           android:id="@+id/newsSectionTextView"

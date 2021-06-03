@@ -1,4 +1,4 @@
-package com.duonghb.testbitrise.ui.home
+package com.duonghb.testbitrise.ui.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

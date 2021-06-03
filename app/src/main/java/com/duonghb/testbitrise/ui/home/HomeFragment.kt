@@ -1,5 +1,9 @@
 package com.duonghb.testbitrise.ui.home
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.viewpager2.widget.ViewPager2
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.FragmentHomeBinding
@@ -23,6 +27,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         safeActivity.supportActionBar?.setDisplayShowHomeEnabled(false)
         safeActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        val actionBar = safeActivity.supportActionBar
+
+        val textActionBar = SpannableString(actionBar?.title)
+        textActionBar.setSpan(ForegroundColorSpan(Color.BLACK), 0, textActionBar.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+
         viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -31,8 +40,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 -> safeActivity.supportActionBar?.setTitle(R.string.title_news)
-                    1 -> safeActivity.supportActionBar?.setTitle(R.string.title_history)
+                    0 -> actionBar?.setTitle(R.string.title_news)
+                    1 -> actionBar?.setTitle(R.string.title_history)
                 }
             }
 
@@ -59,6 +68,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
         }.attach()
+
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("red"))
+        tabLayout.setTabTextColors(Color.parseColor("black"), Color.parseColor("black"))
     }
 
     override fun registerLivedataListeners() {

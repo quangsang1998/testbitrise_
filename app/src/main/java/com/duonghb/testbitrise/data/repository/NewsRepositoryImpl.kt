@@ -17,16 +17,20 @@ class NewsRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val historyDao: HistoryDao,
 ) {
+    fun deleteNewsHistory(url: String): Completable {
+        return historyDao.delete(url)
+    }
+
     fun getNewsList(): Single<NewsModel> {
         return apiService.getNews()
     }
 
-    fun getNewsHistoryDatabase(): Single<List<HistoryModelData>> {
+    fun getNewsHistoryList(): Single<List<HistoryModelData>> {
         return historyDao.getAll()
             .map { list -> list.map { it.toModel() } }
     }
 
-    fun saveNewsHistoryDatabase(model: NewsModelData): Completable {
+    fun saveNewsHistory(model: NewsModelData): Completable {
         val entity = History.fromModel(model)
         return historyDao.insert(entity)
     }

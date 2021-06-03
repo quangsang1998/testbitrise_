@@ -18,7 +18,7 @@
 
   <fragment
     android:id="@+id/navigation_news_detail"
-    android:name="com.duonghb.testbitrise.ui.home.DetailFragment"
+    android:name="com.duonghb.testbitrise.ui.DetailFragment"
     android:label="@string/title_news_detail"
     tools:layout="@layout/detail_fragment">
 

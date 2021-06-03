@@ -1,4 +1,4 @@
-package com.duonghb.testbitrise.ui.home
+package com.duonghb.testbitrise.ui.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsModelData = listNews.get(position)
-        holder.bind(news, news.multimedia.first())
+        holder.bind(news, news.multimedia?.first())
     }
 
     override fun getItemCount(): Int {
@@ -38,14 +38,14 @@ class NewsAdapter(
     inner class NewsViewHolder(itemView: ItemNewsBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: ItemNewsBinding = itemView
 
-        fun bind(news: NewsModelData, newsImage: NewsImage) {
+        fun bind(news: NewsModelData, newsImage: NewsImage?) {
             binding.model = news
             binding.modelImage = newsImage
 
             binding.root.setOnClickListener {
                 clickItemCallback.invoke(news)
             }
-            Picasso.get().load(newsImage.url).into(binding.newsImageView)
+            Picasso.get().load(newsImage?.url).into(binding.newsImageView)
         }
     }
 }

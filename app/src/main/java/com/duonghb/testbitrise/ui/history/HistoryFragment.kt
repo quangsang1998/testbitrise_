@@ -1,10 +1,11 @@
-package com.duonghb.testbitrise.ui.home
+package com.duonghb.testbitrise.ui.history
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.HistoryFragmentBinding
 import com.duonghb.testbitrise.ui.common.BaseFragment
+import com.duonghb.testbitrise.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.history_fragment.*
 
@@ -14,18 +15,22 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
     override val layoutId: Int
         get() = R.layout.history_fragment
 
+    private val viewModelHistory: HistoryViewModel by viewModels()
+
     private val historyAdapter by lazy {
         HistoryAdapter(
             clickHistoryItemCallback = {
-                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(it.url))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
+                        it.url
+                    )
+                )
             }
         )
     }
 
-    private val viewModel: HomeViewModel by viewModels()
-
     override fun init() {
-        viewModel.getNewsHistoryListDatabase()
+        viewModelHistory.getNewsHistoryListDatabase()
     }
 
     override fun initUi() {
@@ -33,14 +38,8 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
     }
 
     override fun registerLivedataListeners() {
-        viewModel.saveNewsHistoryDatabaseCompleted.observe(
-            this,
-            {
-                viewModel.getNewsHistoryListDatabase()
-            }
-        )
 
-        viewModel.loadNewsHistoryListDatabaseCompleted.observe(
+        viewModelHistory.loadNewsHistoryListDatabaseCompleted.observe(
             this,
             {
                 historyAdapter.setHistoryItems(it)

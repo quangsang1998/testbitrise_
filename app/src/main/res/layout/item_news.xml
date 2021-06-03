@@ -28,17 +28,17 @@
 
       <ImageView
         android:id="@+id/newsImageView"
-        android:layout_width="@dimen/size_width_height"
-        android:layout_height="@dimen/size_width_height"
+        android:layout_width="@dimen/image_height_width"
+        android:layout_height="@dimen/image_height_width"
         android:layout_marginStart="@dimen/megin_start_end_top_bottom"
         android:contentDescription="@string/content_image"
-        android:paddingBottom="@dimen/image_height"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
       <LinearLayout
         android:id="@+id/linearLayout"

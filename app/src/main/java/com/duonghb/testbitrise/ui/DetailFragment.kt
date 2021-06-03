@@ -1,4 +1,4 @@
-package com.duonghb.testbitrise.ui.home
+package com.duonghb.testbitrise.ui
 
 import android.view.View
 import android.webkit.WebViewClient

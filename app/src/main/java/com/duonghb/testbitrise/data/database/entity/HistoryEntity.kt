@@ -2,9 +2,7 @@ package com.duonghb.testbitrise.data.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.duonghb.testbitrise.domain.historymodel.HistoryModelData
 import com.duonghb.testbitrise.domain.model.NewsModelData
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,10 +15,8 @@ data class History @Inject constructor(
     @ColumnInfo(name = COLUMN_TITLE) val title: String,
     @ColumnInfo(name = COLUMN_SECTION) val section: String,
     @ColumnInfo(name = COLUMN_URL) var url: String,
-    @ColumnInfo(name = COLUMN_IMAGE_URL) @Ignore var imageUrl: String?
+    @ColumnInfo(name = COLUMN_IMAGE_URL) var imageUrl: String
 ) {
-    constructor(time: Long?, title: String, section: String, url: String) : this(time, title, section, url, "")
-
     companion object {
         const val NAME = "news_model_data"
         const val COLUMN_TIME = "time"
@@ -34,7 +30,7 @@ data class History @Inject constructor(
             title = model.title,
             section = model.section,
             url = model.url,
-            imageUrl = model.multimedia?.first()?.url
+            imageUrl = model.multimedia.first().url
         )
     }
 }

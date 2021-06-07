@@ -1,6 +1,7 @@
 package com.duonghb.testbitrise.di
 
 import com.duonghb.testbitrise.network.ApiService
+import com.duonghb.testbitrise.util.constant.Constant
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -13,11 +14,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-class BaseConstant {
-    companion object {
-        const val BASE_URL: String = "https://api.nytimes.com/svc/topstories/v2/"
-    }
-}
 @Module()
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -34,7 +30,7 @@ object AppModule {
         clientBuilder.addInterceptor(loggingInterceptor).build()
 
         return Retrofit.Builder()
-            .baseUrl(BaseConstant.BASE_URL)
+            .baseUrl(Constant.BASE_URL)
             .client(clientBuilder.build())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson)).build()

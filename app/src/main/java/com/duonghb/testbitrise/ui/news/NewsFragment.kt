@@ -32,6 +32,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
                         it.url
                     )
                 )
+                it.time = System.currentTimeMillis()
                 viewModelNews.saveNewsModelDatabase(it)
             }
         )
@@ -68,7 +69,6 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
         outAnimation.duration = 200
         progressLoading.animation = outAnimation
         progressLoading.visibility = View.GONE
-        viewModelNews.loadData()
 
         newsSwipeRefresh.setOnRefreshListener {
             viewModelNews.loadData()
@@ -77,7 +77,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>() {
 
     override fun initUi() {
         newsRecyclerView.adapter = newsAdapter
-        newsRecyclerView.setItemViewCacheSize(10)
+        newsRecyclerView.setItemViewCacheSize(20)
     }
 
     override fun registerLivedataListeners() {

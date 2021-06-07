@@ -23,7 +23,6 @@ class NewsViewModel @Inject constructor(
     private val schedulerProvider: SchedulerProvider
 ) : BaseViewModel() {
 
-    val saveNewsHistoryDatabaseCompleted: LiveData<Boolean> get() = _saveNewsHistoryDatabaseCompleted
     private val _saveNewsHistoryDatabaseCompleted = MutableLiveData<Boolean>()
 
     val loadNewsCompleted: LiveData<NewsModel> get() = _loadNewsCompleted
@@ -46,9 +45,9 @@ class NewsViewModel @Inject constructor(
 
     fun saveNewsModelDatabase(model: NewsModelData) {
         deleteNewsHistoryUseCase.invoke(model.url)
-            .concatWith {
+            .andThen(
                 saveNewsHistoryUseCase.invoke(model)
-            }
+            )
             .observeOn(schedulerProvider.io())
             .subscribeOn(schedulerProvider.io())
             .subscribeBy(
@@ -60,5 +59,9 @@ class NewsViewModel @Inject constructor(
                 }
             )
             .addTo(disposables)
+    }
+
+    init {
+        loadData()
     }
 }

@@ -39,4 +39,9 @@ class DetailFragment : BaseFragment<DetailFragmentBinding>() {
 
     override fun registerLivedataListeners() {
     }
+
+    companion object {
+
+        fun newInstance() = DetailFragment()
+    }
 }

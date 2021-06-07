@@ -20,12 +20,6 @@ abstract class BaseFragment<binding : ViewDataBinding> : Fragment() {
         requireActivity() as AppCompatActivity
     }
 
-    open fun load() {
-    }
-
-    open fun finishLoad() {
-    }
-
     abstract fun init()
 
     abstract fun initUi()
@@ -40,8 +34,6 @@ abstract class BaseFragment<binding : ViewDataBinding> : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        load()
-        finishLoad()
         return binding.root
     }
 

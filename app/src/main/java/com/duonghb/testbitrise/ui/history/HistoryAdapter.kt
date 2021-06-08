@@ -30,14 +30,18 @@ class HistoryAdapter(
     }
 
     fun setHistoryItems(items: List<HistoryModelData>) {
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(HistoryDiffUtilCallBack(items, listNewsHistory))
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            HistoryDiffUtilCallBack(items, listNewsHistory)
+        )
 
         diffResult.dispatchUpdatesTo(this)
         listNewsHistory.clear()
         listNewsHistory.addAll(items)
     }
 
-    inner class HistoryViewHolder(itemView: ItemHistoryBinding, private val context: Context) : RecyclerView.ViewHolder(itemView.root) {
+    inner class HistoryViewHolder(itemView: ItemHistoryBinding, private val context: Context) :
+        RecyclerView.ViewHolder(itemView.root) {
+
         var binding: ItemHistoryBinding = itemView
 
         fun bind(news: HistoryModelData) {

@@ -33,14 +33,18 @@ class NewsAdapter(
     }
 
     fun setItems(items: NewsModel) {
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(NewsDiffUtilCallBack(items.results, listNews))
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            NewsDiffUtilCallBack(items.results, listNews)
+        )
 
         diffResult.dispatchUpdatesTo(this)
         listNews.clear()
         listNews.addAll(items.results)
     }
 
-    inner class NewsViewHolder(itemView: ItemNewsBinding, private val context: Context) : RecyclerView.ViewHolder(itemView.root) {
+    inner class NewsViewHolder(itemView: ItemNewsBinding, private val context: Context) :
+        RecyclerView.ViewHolder(itemView.root) {
+
         var binding: ItemNewsBinding = itemView
 
         fun bind(news: NewsModelData, newsImage: NewsImage) {

@@ -30,7 +30,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val actionBar = safeActivity.supportActionBar
 
         val textActionBar = SpannableString(actionBar?.title)
-        textActionBar.setSpan(ForegroundColorSpan(Color.BLACK), 0, textActionBar.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        textActionBar.setSpan(
+            ForegroundColorSpan(Color.BLACK),
+            0,
+            textActionBar.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
 
         viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter

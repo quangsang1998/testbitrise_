@@ -10,6 +10,6 @@ class DeleteNewsHistoryUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
     operator fun invoke(url: String): Completable {
-        return newsRepositoryImpl.deleteNewsHistory(url)
+        return newsRepositoryImpl.deleteHistory(url)
     }
 }

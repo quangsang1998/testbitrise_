@@ -1,7 +1,8 @@
 package com.duonghb.testbitrise.di
 
+import com.duonghb.testbitrise.constant.Constant
 import com.duonghb.testbitrise.network.ApiService
-import com.duonghb.testbitrise.util.constant.Constant
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -12,28 +13,39 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module()
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
-    @Singleton
-    fun provideApiService(): ApiService {
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .baseUrl(Constant.BASE_URL)
+        .client(httpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    @Provides
+    fun provideClientBuilder(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
+
+        return clientBuilder.addInterceptor(httpLoggingInterceptor).build()
+    }
+
+    @Provides
+    fun provideGson(): Gson {
+        return GsonBuilder().setLenient().create()
+    }
+
+    @Provides
+    fun provideOkHttp(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
-
-        val gson = GsonBuilder().setLenient().create()
-
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        clientBuilder.addInterceptor(loggingInterceptor).build()
 
-        return Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
-            .client(clientBuilder.build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson)).build()
-            .create(ApiService::class.java)
+        return loggingInterceptor
     }
 }

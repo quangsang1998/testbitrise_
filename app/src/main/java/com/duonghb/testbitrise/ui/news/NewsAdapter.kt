@@ -1,13 +1,10 @@
 package com.duonghb.testbitrise.ui.news
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.duonghb.testbitrise.databinding.ItemNewsBinding
-import com.duonghb.testbitrise.domain.model.NewsImage
 import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.model.NewsModelData
 
@@ -19,13 +16,13 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NewsViewHolder(binding, parent.context)
+        return NewsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsModelData = listNews.get(position)
 
-        holder.bind(news, news.multimedia.first())
+        holder.bind(news)
     }
 
     override fun getItemCount(): Int {
@@ -42,20 +39,17 @@ class NewsAdapter(
         listNews.addAll(items.results)
     }
 
-    inner class NewsViewHolder(itemView: ItemNewsBinding, private val context: Context) :
+    inner class NewsViewHolder(itemView: ItemNewsBinding) :
         RecyclerView.ViewHolder(itemView.root) {
 
         var binding: ItemNewsBinding = itemView
 
-        fun bind(news: NewsModelData, newsImage: NewsImage) {
+        fun bind(news: NewsModelData) {
             binding.model = news
-            binding.modelImage = newsImage
 
             binding.root.setOnClickListener {
                 clickItemCallback.invoke(news)
             }
-
-            Glide.with(context).load(newsImage.url).into(binding.newsImageView)
         }
     }
 }

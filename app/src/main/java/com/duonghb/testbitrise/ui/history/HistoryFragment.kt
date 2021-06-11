@@ -1,21 +1,27 @@
 package com.duonghb.testbitrise.ui.history
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.HistoryFragmentBinding
-import com.duonghb.testbitrise.ui.common.BaseFragment
 import com.duonghb.testbitrise.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.history_fragment.*
 
 @AndroidEntryPoint
-class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
+class HistoryFragment : Fragment() {
 
-    override val layoutId: Int
-        get() = R.layout.history_fragment
+    private val historyFragment = R.layout.history_fragment
 
-    private val viewModelHistory: HistoryViewModel by viewModels()
+    private lateinit var binding: HistoryFragmentBinding
+
+    private val historyViewModel: HistoryViewModel by viewModels()
 
     private val historyAdapter by lazy {
         HistoryAdapter(
@@ -29,18 +35,36 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>() {
         )
     }
 
-    override fun init() {
-        viewModelHistory.getNewsHistoryListDatabase()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = DataBindingUtil.inflate(inflater, historyFragment, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
-    override fun initUi() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+        initUi()
+        registerLivedataListeners()
+    }
+
+    private fun init() {
+        historyViewModel.getNewsHistoryListDatabase()
+    }
+
+    private fun initUi() {
         historyRecyclerView.adapter = historyAdapter
     }
 
-    override fun registerLivedataListeners() {
+    private fun registerLivedataListeners() {
 
-        viewModelHistory.loadNewsHistoryListDatabaseCompleted.observe(
-            this,
+        historyViewModel.loadNewsHistoryListDatabaseCompleted.observe(
+            viewLifecycleOwner,
             {
                 historyAdapter.setHistoryItems(it)
             }

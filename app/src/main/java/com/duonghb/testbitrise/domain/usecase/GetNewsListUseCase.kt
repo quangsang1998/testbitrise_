@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class GetNewsListUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
-    operator fun invoke(): Single<NewsModel> {
-        return newsRepositoryImpl.getNewsList()
+    operator fun invoke(apiKey: String): Single<NewsModel> {
+        return newsRepositoryImpl.getNewsList(apiKey)
     }
 }

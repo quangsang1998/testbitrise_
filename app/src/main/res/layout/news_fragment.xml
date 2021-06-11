@@ -4,19 +4,31 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+      name="newsViewModel"
+      type="com.duonghb.testbitrise.ui.news.NewsViewModel" />
 
   </data>
 
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/newsSwipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:refreshing="@{newsViewModel.swipeRefreshing}"
+    app:onRefreshListener="@{() -> newsViewModel.swipeRefreshingData()}">
 
     <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="@color/white"
       android:orientation="horizontal">
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_news" />
 
       <FrameLayout
         android:id="@+id/progressLoading"
@@ -37,13 +49,6 @@
           android:layout_gravity="center"
           android:theme="@style/Red"/>
       </FrameLayout>
-
-      <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_news" />
     </RelativeLayout>
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

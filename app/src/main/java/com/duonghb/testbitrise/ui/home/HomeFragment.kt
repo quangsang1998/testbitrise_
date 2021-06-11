@@ -1,52 +1,68 @@
 package com.duonghb.testbitrise.ui.home
 
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.duonghb.testbitrise.R
-import com.duonghb.testbitrise.databinding.FragmentHomeBinding
-import com.duonghb.testbitrise.ui.common.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : Fragment() {
 
-    override val layoutId: Int
-        get() = R.layout.fragment_home
+    private val homeFragment = R.layout.fragment_home
+
+    private lateinit var binding: ViewDataBinding
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    override fun init() {
+    private val safeActivity by lazy {
+        requireActivity() as AppCompatActivity
     }
 
-    override fun initUi() {
+    enum class PositionValue(val value: Int) {
+        FIRST_TAG(0),
+        SECOND_TAG(1),
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = DataBindingUtil.inflate(inflater, homeFragment, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUi()
+    }
+
+    private fun initUi() {
         safeActivity.supportActionBar?.setDisplayShowHomeEnabled(false)
         safeActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         val actionBar = safeActivity.supportActionBar
 
-        val textActionBar = SpannableString(actionBar?.title)
-        textActionBar.setSpan(
-            ForegroundColorSpan(Color.BLACK),
-            0,
-            textActionBar.length,
-            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-        )
-
         viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 -> actionBar?.setTitle(R.string.title_news)
-                    1 -> actionBar?.setTitle(R.string.title_history)
+                    PositionValue.FIRST_TAG.value -> actionBar?.setTitle(R.string.title_news)
+                    PositionValue.SECOND_TAG.value -> actionBar?.setTitle(R.string.title_history)
                 }
             }
 
@@ -65,20 +81,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         TabLayoutMediator(tabLayout, viewPager) { tag, position ->
             when (position) {
-                0 -> {
+                PositionValue.FIRST_TAG.value -> {
                     tag.setText(R.string.title_news)
                 }
-                1 -> {
+                PositionValue.SECOND_TAG.value -> {
                     tag.setText(R.string.title_history)
                 }
             }
         }.attach()
-
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("red"))
-        tabLayout.setTabTextColors(Color.parseColor("black"), Color.parseColor("black"))
-    }
-
-    override fun registerLivedataListeners() {
     }
 
     companion object {

@@ -7,10 +7,6 @@
     <variable
       name="modelHistory"
       type="com.duonghb.testbitrise.domain.historymodel.HistoryModelData" />
-
-    <variable
-      name="modelImage"
-      type="com.duonghb.testbitrise.domain.model.NewsImage" />
   </data>
 
   <androidx.cardview.widget.CardView
@@ -30,51 +26,42 @@
         android:id="@+id/newsHistoryImageView"
         android:layout_width="@dimen/image_height_width"
         android:layout_height="@dimen/image_height_width"
-        android:layout_marginStart="@dimen/megin_start_end_top_bottom"
         android:contentDescription="@string/content_image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"
+        app:imageUrl="@{modelHistory.imageUrl}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-      <LinearLayout
-        android:id="@+id/linearLayout"
+      <TextView
+        android:id="@+id/newsTitleTextView"
         android:layout_width="@dimen/size_width_height"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/megin_start_end_top_bottom"
-        android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@{modelHistory.title}"
+        android:textStyle="bold"
+        android:lines="3"
+        android:ems="6"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toTopOf="@+id/newsSectionTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newsHistoryImageView"/>
+
+      <TextView
+        android:id="@+id/newsSectionTextView"
+        android:layout_width="@dimen/size_width_height"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@{modelHistory.section}"
+        android:lines="3"
+        android:ems="6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/newsHistoryImageView"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-          android:id="@+id/newsTitleTextView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:gravity="center"
-          android:text="@{modelHistory.title}"
-          android:textStyle="bold"
-          android:lines="3"
-          android:ems="6"
-          android:ellipsize="end"/>
-
-        <TextView
-          android:id="@+id/newsSectionTextView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:layout_weight="1"
-          android:gravity="start"
-          android:text="@{modelHistory.section}"
-          android:lines="3"
-          android:ems="6"/>
-      </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newsTitleTextView"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
 </layout>

@@ -7,10 +7,6 @@
     <variable
       name="model"
       type="com.duonghb.testbitrise.domain.model.NewsModelData" />
-
-    <variable
-      name="modelImage"
-      type="com.duonghb.testbitrise.domain.model.NewsImage" />
   </data>
 
   <androidx.cardview.widget.CardView
@@ -34,56 +30,54 @@
         android:contentDescription="@string/content_image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"
+        app:imageUrl="@{model.multimedia.get(0).url}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-      <LinearLayout
-        android:id="@+id/linearLayout"
+      <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="@dimen/size_width_height"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/megin_start_end_top_bottom"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:text="@{model.title}"
+        android:textStyle="bold"
+        android:lines="3"
+        android:ems="6"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@+id/newsImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/newsImageView"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/sectionTextView"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-          android:id="@+id/titleTextView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:gravity="center"
-          android:text="@{model.title}"
-          android:textStyle="bold"
-          android:lines="3"
-          android:ems="6"
-          android:ellipsize="end"/>
+      <TextView
+        android:id="@+id/sectionTextView"
+        android:layout_width="@dimen/size_width_height"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
+        android:gravity="start"
+        android:text="@{model.section}"
+        app:layout_constraintStart_toEndOf="@+id/newsImageView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-          android:id="@+id/sectionTextView"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/size_width_height"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:layout_weight="1"
-          android:gravity="start"
-          android:text="@{model.section}" />
-
-        <TextView
-          android:id="@+id/descriptionTextView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
-          android:gravity="start"
-          android:text="@{model.abstract}"
-          android:lines="6"
-          android:ems="6"
-          android:ellipsize="end" />
-      </LinearLayout>
+      <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="@dimen/size_width_height"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
+        android:gravity="start"
+        android:text="@{model.abstract}"
+        android:lines="6"
+        android:ems="6"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@+id/newsImageView"
+        app:layout_constraintTop_toBottomOf="@+id/sectionTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
 </layout>

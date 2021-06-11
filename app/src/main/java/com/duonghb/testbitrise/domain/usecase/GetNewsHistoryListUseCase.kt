@@ -11,6 +11,6 @@ class GetNewsHistoryListUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
     operator fun invoke(): Single<List<HistoryModelData>> {
-        return newsRepositoryImpl.getNewsHistoryList()
+        return newsRepositoryImpl.getAllHistories()
     }
 }

@@ -11,6 +11,6 @@ class SaveNewsHistoryUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
     operator fun invoke(model: NewsModelData): Completable {
-        return newsRepositoryImpl.saveNewsHistory(model)
+        return newsRepositoryImpl.saveHistory(model)
     }
 }

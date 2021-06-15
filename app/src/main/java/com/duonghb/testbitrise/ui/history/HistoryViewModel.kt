@@ -3,7 +3,7 @@ package com.duonghb.testbitrise.ui.history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.duonghb.testbitrise.domain.historymodel.HistoryModelData
-import com.duonghb.testbitrise.domain.usecase.*
+import com.duonghb.testbitrise.domain.usecase.GetNewsHistoryListUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

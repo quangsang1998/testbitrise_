@@ -1,9 +1,12 @@
 package com.duonghb.testbitrise.ui.news
 
 import android.os.Bundle
-import android.view.*
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,7 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.NewsFragmentBinding
+import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.ui.home.HomeFragmentDirections
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.news_fragment.*
 
@@ -22,24 +28,25 @@ class NewsFragment : Fragment() {
 
     private lateinit var binding: NewsFragmentBinding
 
-    private lateinit var inAnimation: Animation
-    private lateinit var outAnimation: Animation
+    private val adapter = GroupAdapter<GroupieViewHolder>()
+
+    fun generateItemNewGroupie(newsModel: NewsModel): MutableList<ItemNewGroupie> {
+        return MutableList(newsModel.results.size) {
+            ItemNewGroupie(
+                clickItemCallback = {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
+                            it.url
+                        )
+                    )
+
+                    newsViewModel.saveNewsModelDatabase(it.copy(time = System.currentTimeMillis()))
+                }
+            )
+        }
+    }
 
     private val newsViewModel: NewsViewModel by viewModels()
-
-    private val newsAdapter by lazy {
-        NewsAdapter(
-            clickItemCallback = {
-                findNavController().navigate(
-                    HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
-                        it.url
-                    )
-                )
-
-                newsViewModel.saveNewsModelDatabase(it.copy(time = System.currentTimeMillis()))
-            }
-        )
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
@@ -54,13 +61,6 @@ class NewsFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        inAnimation = AlphaAnimation(0f, 1f)
-        progressLoading.animation = inAnimation
-        progressLoading.visibility = View.VISIBLE
     }
 
     override fun onCreateView(
@@ -83,10 +83,8 @@ class NewsFragment : Fragment() {
 
     private fun initUi() {
         setHasOptionsMenu(true)
-        outAnimation = AlphaAnimation(1f, 0f)
-        progressLoading.animation = outAnimation
 
-        newsRecyclerView.adapter = newsAdapter
+        newsRecyclerView.adapter = adapter
         newsRecyclerView.setItemViewCacheSize(20)
     }
 
@@ -94,8 +92,7 @@ class NewsFragment : Fragment() {
         newsViewModel.loadNewsCompleted.observe(
             viewLifecycleOwner,
             Observer {
-                progressLoading.visibility = View.GONE
-                newsAdapter.setItems(it)
+                adapter.updateAsync(generateItemNewGroupie(it))
             }
         )
     }

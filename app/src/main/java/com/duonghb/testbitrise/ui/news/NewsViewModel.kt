@@ -29,6 +29,9 @@ class NewsViewModel @Inject constructor(
     val loadNewsCompleted: LiveData<NewsModel> get() = _loadNewsCompleted
     private val _loadNewsCompleted = MutableLiveData<NewsModel>()
 
+    val loadNewsCompletedProgressBar: LiveData<Boolean> get() = _loadNewsCompletedProgressBar
+    private val _loadNewsCompletedProgressBar = MutableLiveData<Boolean>()
+
     val swipeRefreshing: LiveData<Boolean> get() = _swipeRefreshing
     private val _swipeRefreshing = MutableLiveData<Boolean>()
 
@@ -39,6 +42,7 @@ class NewsViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = {
                     _loadNewsCompleted.postValue(it)
+                    _loadNewsCompletedProgressBar.postValue(true)
                     _swipeRefreshing.postValue(false)
                 },
                 onError = {

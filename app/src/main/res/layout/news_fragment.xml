@@ -8,6 +8,9 @@
       name="newsViewModel"
       type="com.duonghb.testbitrise.ui.news.NewsViewModel" />
 
+    <variable
+      name="view"
+      type="android.view.View" />
   </data>
 
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -33,7 +36,7 @@
       <FrameLayout
         android:id="@+id/progressLoading"
         android:animateLayoutChanges="true"
-        android:visibility="visible"
+        android:visibility="@{newsViewModel.loadNewsCompletedProgressBar? view.GONE: view.VISIBLE}"
         android:clickable="true"
         android:focusable="true"
         android:alpha="0.4"
@@ -47,7 +50,7 @@
           android:layout_height="wrap_content"
           android:indeterminate="true"
           android:layout_gravity="center"
-          android:theme="@style/Red"/>
+          android:theme="@style/Red" />
       </FrameLayout>
     </RelativeLayout>
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

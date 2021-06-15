@@ -49,6 +49,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 kapt {
@@ -92,6 +96,10 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation 'com.pnikosis:materialish-progress:1.7'
+    implementation "com.xwray:groupie:2.8.1"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.1"
+    implementation "com.xwray:groupie-viewbinding:2.8.1"
+
 
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"

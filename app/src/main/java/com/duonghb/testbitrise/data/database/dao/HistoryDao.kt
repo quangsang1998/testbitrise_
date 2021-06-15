@@ -1,6 +1,8 @@
 package com.duonghb.testbitrise.data.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 import com.duonghb.testbitrise.data.database.entity.History
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -1,14 +1,16 @@
 package com.duonghb.testbitrise.ui.news
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.duonghb.testbitrise.constant.Constant
-import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.domain.model.NewsModelData
 import com.duonghb.testbitrise.domain.usecase.DeleteNewsHistoryUseCase
 import com.duonghb.testbitrise.domain.usecase.GetNewsListUseCase
 import com.duonghb.testbitrise.domain.usecase.SaveNewsHistoryUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
+import com.duonghb.testbitrise.ui.common.NoCacheMutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -22,31 +24,43 @@ class NewsViewModel @Inject constructor(
     private val deleteNewsHistoryUseCase: DeleteNewsHistoryUseCase,
     private val getNewsListUseCase: GetNewsListUseCase,
     private val saveNewsHistoryUseCase: SaveNewsHistoryUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), NewListItemViewModel.Listener {
 
-    private val _saveNewsHistoryDatabaseCompleted = MutableLiveData<Boolean>()
+    val onEvent: LiveData<Event> get() = _onEvent
+    private val _onEvent = NoCacheMutableLiveData<Event>()
 
-    val loadNewsCompleted: LiveData<NewsModel> get() = _loadNewsCompleted
-    private val _loadNewsCompleted = MutableLiveData<NewsModel>()
+    val fetchedNews: LiveData<List<NewListItemViewModel>> get() = _fetchedNews
+    private val _fetchedNews = MutableLiveData<List<NewListItemViewModel>>()
 
-    val loadNewsCompletedProgressBar: LiveData<Boolean> get() = _loadNewsCompletedProgressBar
-    private val _loadNewsCompletedProgressBar = MutableLiveData<Boolean>()
+    private val _loading = MutableLiveData<Boolean>()
+    val loading = _loading.map {
+        if (it) View.VISIBLE else View.GONE
+    }
 
     val swipeRefreshing: LiveData<Boolean> get() = _swipeRefreshing
     private val _swipeRefreshing = MutableLiveData<Boolean>()
 
-    fun loadData() {
+    init {
+        _loading.postValue(true)
+        loadData()
+    }
+
+    private fun loadData() {
         getNewsListUseCase.invoke(Constant.API_KEY)
+            .map {
+                it.results.map { NewListItemViewModel(it, this) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
+            .doFinally {
+                _loading.postValue(false)
+                _swipeRefreshing.postValue(false)
+            }
             .subscribeBy(
                 onSuccess = {
-                    _loadNewsCompleted.postValue(it)
-                    _loadNewsCompletedProgressBar.postValue(true)
-                    _swipeRefreshing.postValue(false)
+                    _fetchedNews.postValue(it)
                 },
                 onError = {
-                    _swipeRefreshing.postValue(false)
                     Timber.e("Error")
                 }
             )
@@ -58,7 +72,7 @@ class NewsViewModel @Inject constructor(
         loadData()
     }
 
-    fun saveNewsModelDatabase(model: NewsModelData) {
+    private fun saveNew(model: NewsModelData) {
         deleteNewsHistoryUseCase.invoke(model.url)
             .andThen(
                 saveNewsHistoryUseCase.invoke(model)
@@ -67,7 +81,7 @@ class NewsViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onComplete = {
-                    _saveNewsHistoryDatabaseCompleted.postValue(true)
+                    Timber.e("onComplete")
                 },
                 onError = {
                     Timber.e("Error")
@@ -76,7 +90,13 @@ class NewsViewModel @Inject constructor(
             .addTo(disposables)
     }
 
-    init {
-        loadData()
+    override fun onItemClick(newItem: NewsModelData) {
+        saveNew(newItem.copy(time = System.currentTimeMillis()))
+        _onEvent.setValue(Event.ClickedItem(newItem))
+    }
+
+    sealed class Event {
+        object ClickedClose : Event()
+        class ClickedItem(val newItem: NewsModelData) : Event()
     }
 }

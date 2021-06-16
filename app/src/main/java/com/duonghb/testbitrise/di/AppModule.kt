@@ -4,6 +4,8 @@ import com.duonghb.testbitrise.constant.Constant
 import com.duonghb.testbitrise.network.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,4 +50,7 @@ object AppModule {
 
         return loggingInterceptor
     }
+
+    @Provides
+    fun provideGroupieAdapter() = GroupAdapter<GroupieViewHolder>()
 }

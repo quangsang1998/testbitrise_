@@ -1,40 +1,62 @@
 package com.duonghb.testbitrise.ui.news
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.NewsFragmentBinding
 import com.duonghb.testbitrise.ui.home.HomeFragmentDirections
+import com.duonghb.testbitrise.ui.news.NewsViewModel.Event
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.news_fragment.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment(R.layout.news_fragment) {
 
-    private val newsFragment = R.layout.news_fragment
+    private val viewModel: NewsViewModel by viewModels()
 
-    private lateinit var binding: NewsFragmentBinding
+    @Inject
+    lateinit var adapter: GroupAdapter<GroupieViewHolder>
 
-    private val adapter = NewsAdapter {
-        findNavController().navigate(
-            HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
-                it.url
-            )
-        )
-        newsViewModel.saveNewsModelDatabase(it.copy(time = System.currentTimeMillis()))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+
+        val binding = NewsFragmentBinding.bind(view)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.newsRecyclerView.adapter = adapter
+
+        viewModel.fetchedNews.observe(viewLifecycleOwner, ::renderItems)
+        viewModel.onEvent.observe(viewLifecycleOwner, ::handleEvent)
     }
 
-    private val newsViewModel: NewsViewModel by viewModels()
+    private fun renderItems(news: List<NewListItemViewModel>) {
+        adapter.updateAsync(news.map { NewListItem(it) })
+    }
+
+    private fun handleEvent(event: Event) {
+        when (event) {
+            Event.ClickedClose -> {
+                // sample use sealed
+            }
+            is Event.ClickedItem -> {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
+                        event.newItem.url
+                    )
+                )
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
@@ -44,45 +66,11 @@ class NewsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_refresh -> {
-                newsViewModel.swipeRefreshingData()
+                viewModel.swipeRefreshingData()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, newsFragment, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.newsViewModel = newsViewModel
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUi()
-        registerLiveDataListener()
-    }
-
-    private fun initUi() {
-        setHasOptionsMenu(true)
-
-        newsRecyclerView.adapter = adapter
-        newsRecyclerView.setItemViewCacheSize(20)
-    }
-
-    private fun registerLiveDataListener() {
-        newsViewModel.loadNewsCompleted.observe(
-            viewLifecycleOwner,
-            Observer {
-                adapter.setItems(it)
-            }
-        )
     }
 
     companion object {

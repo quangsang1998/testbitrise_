@@ -5,8 +5,8 @@
   <data>
 
     <variable
-      name="model"
-      type="com.duonghb.testbitrise.domain.model.NewsModelData" />
+      name="viewModel"
+      type="com.duonghb.testbitrise.ui.news.NewListItemViewModel" />
   </data>
 
   <androidx.cardview.widget.CardView
@@ -16,7 +16,8 @@
     android:layout_marginTop="@dimen/megin_start_end_top_bottom"
     android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
     android:layout_marginBottom="@dimen/megin_start_end_top_bottom"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:onClick="@{() -> viewModel.onItemClick()}">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -30,7 +31,7 @@
         android:contentDescription="@string/content_image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"
-        app:imageUrl="@{model.multimedia.get(0).url}"
+        app:imageUrl="@{viewModel.url}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
         android:gravity="center"
-        android:text="@{model.title}"
+        android:text="@{viewModel.newItem.title}"
         android:textStyle="bold"
         android:lines="3"
         android:ems="6"
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
         android:gravity="start"
-        android:text="@{model.section}"
+        android:text="@{viewModel.newItem.section}"
         app:layout_constraintStart_toEndOf="@+id/newsImageView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
@@ -70,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/megin_start_end_top_bottom"
         android:gravity="start"
-        android:text="@{model.abstract}"
+        android:text="@{viewModel.newItem.abstract}"
         android:lines="6"
         android:ems="6"
         android:ellipsize="end"

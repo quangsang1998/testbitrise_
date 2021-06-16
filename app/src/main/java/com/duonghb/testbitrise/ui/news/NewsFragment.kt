@@ -14,10 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.NewsFragmentBinding
-import com.duonghb.testbitrise.domain.model.NewsModel
 import com.duonghb.testbitrise.ui.home.HomeFragmentDirections
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.news_fragment.*
 
@@ -28,22 +25,13 @@ class NewsFragment : Fragment() {
 
     private lateinit var binding: NewsFragmentBinding
 
-    private val adapter = GroupAdapter<GroupieViewHolder>()
-
-    fun generateItemNewGroupie(newsModel: NewsModel): MutableList<ItemNewGroupie> {
-        return MutableList(newsModel.results.size) {
-            ItemNewGroupie(
-                clickItemCallback = {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
-                            it.url
-                        )
-                    )
-
-                    newsViewModel.saveNewsModelDatabase(it.copy(time = System.currentTimeMillis()))
-                }
+    private val adapter = NewsAdapter {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(
+                it.url
             )
-        }
+        )
+        newsViewModel.saveNewsModelDatabase(it.copy(time = System.currentTimeMillis()))
     }
 
     private val newsViewModel: NewsViewModel by viewModels()
@@ -92,7 +80,7 @@ class NewsFragment : Fragment() {
         newsViewModel.loadNewsCompleted.observe(
             viewLifecycleOwner,
             Observer {
-                adapter.updateAsync(generateItemNewGroupie(it))
+                adapter.setItems(it)
             }
         )
     }
